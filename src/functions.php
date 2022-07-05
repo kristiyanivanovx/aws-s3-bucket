@@ -2,23 +2,26 @@
 
 function getFilesInDirectory($directory) {
     $files = scandir($directory);
-    $fileList = [];
+    $filesList = [];
 
     foreach ($files as $file) {
         if ($file !== '.' && $file !== '..') {
-            $fileList[] = $directory . "/" . $file;
+            $filesList[] = $directory . "/" . $file;
         }
     }
 
-    return $fileList;
+    return $filesList;
 }
 
-function uploadFilesInFolder($fileNames, $client, $bucketName) {
-    foreach ($fileNames as $fileName) {
+function uploadFilesInFolder($fileFullNames, $client, $bucketName) {
+    foreach ($fileFullNames as $fileFullName) {
+        $filePathExploded = explode('/', $fileFullName);
+        $fileName = $filePathExploded[count($filePathExploded) - 1];
+
         $client->putObject([
             'Bucket' => $bucketName,
             'Key' => $fileName,
-            'Body' => fopen($fileName, 'r'),
+            'Body' => fopen($fileFullName, 'r'),
         ]);
     }
 }

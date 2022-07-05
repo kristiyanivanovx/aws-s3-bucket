@@ -13,7 +13,7 @@ $sdk = new Aws\Sdk($config);
 $s3Client = $sdk->createS3();
 
 if (!isset($argv[1])) {
-    die('Please provide unique name for the bucket to create!' . PHP_EOL . 'Syntax: php artisan [bucket name]');
+    die('Please provide unique name for the bucket to create!' . PHP_EOL . 'Syntax: php createBucketService.php [bucket name]');
 }
 
 $bucketName = $argv[1];
