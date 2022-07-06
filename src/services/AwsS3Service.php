@@ -54,6 +54,11 @@ class AwsS3Service
 
     public function updateClientConfigurations($bucketName, $configuration): string
     {
+        $doesBucketExist = $this->s3Client->doesBucketExist($bucketName);
+        if (!$doesBucketExist) {
+            return "Bucket " . $bucketName . ' does not exist!' . PHP_EOL;
+        }
+
         try {
             $clientId = $configuration->clientId;
             $clientFolderHash = $this->dataService->getHashedValue($clientId);
@@ -87,6 +92,11 @@ class AwsS3Service
 
     public function createClientConfigurations($bucketName, $configuration, $locale, $configurationIndex): string
     {
+        $doesBucketExist = $this->s3Client->doesBucketExist($bucketName);
+        if (!$doesBucketExist) {
+            return "Bucket " . $bucketName . ' does not exist!' . PHP_EOL;
+        }
+
         try {
             $clientId = $configuration->clientId;
             $clientFolderHash = $this->dataService->getHashedValue($clientId);
@@ -103,6 +113,11 @@ class AwsS3Service
 
     public function createClientFolders($bucketName, $clientId): string
     {
+        $doesBucketExist = $this->s3Client->doesBucketExist($bucketName);
+        if (!$doesBucketExist) {
+            return "Bucket " . $bucketName . ' does not exist!' . PHP_EOL;
+        }
+
         try {
             $clientFolderHash = $this->dataService->getHashedValue($clientId);
             $key = $clientFolderHash . "/";

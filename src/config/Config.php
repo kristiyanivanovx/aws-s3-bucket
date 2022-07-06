@@ -8,7 +8,7 @@ class Config
      * @var string[]
      */
     private array $config;
-    private string $bucketName = 'bucket.chris.123.2';
+    private string $bucketName = 'x.bucket.chris.123';
 
     public function __construct()
     {
